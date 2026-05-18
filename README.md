@@ -1,8 +1,10 @@
-# drupal-radix - an AI skill and reference pack for the Radix theme
+# drupal-radix-skill - an AI skill and reference pack for the Radix theme
 
 A reusable instruction pack for AI assistants, coding agents, and prompt-driven tools that need to work with the [Radix theme for Drupal](https://www.drupal.org/project/radix). It covers Radix as a Bootstrap 5 subtheme generator with Single Directory Components (SDC), the `drupal-radix-cli` tool, and 55+ pre-built components.
 
 The repository is packaged as a Claude-compatible skill, but the guidance, references, and templates are also useful with other LLM clients and agent tools.
+
+The canonical skill identifier is `drupal-radix-skill`. That matches the repository directory name, which keeps it compatible with skills.sh-style registries that expect the folder name and frontmatter `name` to match.
 
 ## What it does
 
@@ -49,16 +51,18 @@ drupal-radix-skill/
 #### User-level
 
 ```bash
-git clone https://github.com/doxigo/drupal-radix-skill.git ~/.claude/skills/drupal-radix
+git clone https://github.com/doxigo/drupal-radix-skill.git ~/.claude/skills/drupal-radix-skill
 ```
 
 Verify it's loaded:
 
 ```bash
-ls ~/.claude/skills/drupal-radix/SKILL.md
+ls ~/.claude/skills/drupal-radix-skill/SKILL.md
 ```
 
 Open any Claude Code session. The skill will appear in your available skills list and trigger automatically on Radix-related work.
+
+If you already installed this repo under `~/.claude/skills/drupal-radix`, rename that directory to `~/.claude/skills/drupal-radix-skill` so the folder matches the skill name.
 
 #### Project-level
 
@@ -66,15 +70,25 @@ If you want the skill scoped to a single project:
 
 ```bash
 cd /path/to/your/drupal/project
-git clone https://github.com/doxigo/drupal-radix-skill.git .claude/skills/drupal-radix
+git clone https://github.com/doxigo/drupal-radix-skill.git .claude/skills/drupal-radix-skill
 ```
 
 #### Update
 
 ```bash
-cd ~/.claude/skills/drupal-radix
+cd ~/.claude/skills/drupal-radix-skill
 git pull
 ```
+
+### skills.sh
+
+If you publish this repository publicly on GitHub, skills.sh-compatible tooling can install it directly from the repo:
+
+```bash
+npx skills add doxigo/drupal-radix-skill
+```
+
+That works because the repository directory name and the skill frontmatter name now match: `drupal-radix-skill`.
 
 ### Other AI assistants and tools
 

@@ -1,11 +1,11 @@
 ---
-name: drupal-radix
-description: Use the Radix theme for Drupal — a Bootstrap 5 subtheme generator with Single Directory Components (SDC), 50+ pre-built components, and the `drupal-radix-cli` tool. Trigger on any work in a Drupal 10.1+ project that uses Radix 6.x — creating subthemes with `drush radix:create`, writing or modifying `{% include 'radix:component' with {…} %}` Twig, scaffolding new SDC components (`.component.yml` + `.twig` + `.scss` + `_*.js`), overriding shipped Radix components, customizing `_variables.scss` or integrating Bootswatch themes, configuring `webpack.mix.js` / BiomeJS / BrowserSync, or migrating from Radix 5.x to 6.x. Also trigger on mentions of `drupal-radix-cli`, Radix subthemes, `radix:create`, the `*_utility_classes` convention, or any reference to a Radix shipped component (accordion, card, navbar, modal, etc.) in a Drupal context. Not for Radix UI / Radix Themes (the React component libraries by WorkOS/Modulz) — that is an unrelated project.
+name: drupal-radix-skill
+description: Use the Radix theme for Drupal in Drupal 11 projects that use Radix 6.x. It covers Bootstrap 5 subthemes, Single Directory Components (SDC), 50+ pre-built components, and the `drupal-radix-cli` tool. Trigger on subtheme creation with `drush radix:create`, Twig includes like `{% include 'radix:component' with {...} %}`, custom SDC scaffolding, shipped-component overrides, `_variables.scss` and Bootswatch work, `webpack.mix.js` and BrowserSync setup, and 5.x to 6.x migration work. Also trigger on mentions of `drupal-radix-cli`, Radix subthemes, `radix:create`, `*_utility_classes`, or any Radix shipped component in a Drupal context. Not for Radix UI or Radix Themes for React.
 ---
 
 # Drupal Radix Theme
 
-Radix is a contributed Drupal base theme for Drupal 10.1+ that ships Bootstrap 5.3, a `drush radix:create` subtheme generator, a `drupal-radix-cli` npm tool, and 50+ Single Directory Components (SDC) you compose in Twig. This skill teaches Claude how to scaffold subthemes, use and override shipped components, build new SDC components in the Radix style, and migrate older subthemes forward.
+Radix is a contributed Drupal base theme for Drupal 11 that ships Bootstrap 5.3, a `drush radix:create` subtheme generator, a `drupal-radix-cli` npm tool, and 50+ Single Directory Components (SDC) you compose in Twig. This skill teaches Claude how to scaffold subthemes, use and override shipped components, build new SDC components in the Radix style, and migrate older subthemes forward.
 
 The project lives at https://www.drupal.org/project/radix; docs are at https://docs.trydrupal.com/radix. The maintainer is Ramsalt; the issue queue is on drupal.org.
 

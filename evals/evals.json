@@ -1,10 +1,10 @@
 {
-  "skill_name": "drupal-radix",
+  "skill_name": "drupal-radix-skill",
   "evals": [
     {
       "id": 1,
       "name": "subtheme-creation",
-      "prompt": "I just installed Drupal 10.3 in a fresh DDEV project. I want to use the Radix theme. Walk me through every step to: (1) install Radix via Composer, (2) generate a subtheme called `acme`, (3) enable it as the default theme, (4) install the npm dependencies, and (5) start the dev server with BrowserSync hooked up to my DDEV URL. Give me the exact commands in the order I should run them.",
+      "prompt": "I just installed Drupal 11 in a fresh DDEV project. I want to use the Radix theme. Walk me through every step to: (1) install Radix via Composer, (2) generate a subtheme called `acme`, (3) enable it as the default theme, (4) install the npm dependencies, and (5) start the dev server with BrowserSync hooked up to my DDEV URL. Give me the exact commands in the order I should run them.",
       "expected_output": "A sequenced, runnable shell session: `composer require 'drupal/radix:^6.0'`, `ddev drush --include=\"web/themes/contrib/radix\" radix:create acme`, `ddev drush theme:enable acme`, `ddev drush config:set system.theme default acme -y`, cd into subtheme, `nvm use`, `npm install`, `cp .env.example .env.local` with DDEV-aware `DRUPAL_BASE_URL` guidance, then `npm run watch`. Should mention the DDEV-specific command prefixing.",
       "files": [],
       "assertions": [
@@ -69,7 +69,7 @@
     {
       "id": 5,
       "name": "5x-to-6x-migration",
-      "prompt": "I maintain a Drupal 9 site with a Radix 5.x subtheme called `oldtheme`. I want to upgrade to Drupal 10.3 and Radix 6.x. What's the right strategy — do I edit `oldtheme` in place or create a fresh subtheme? Walk me through the high-level steps and give me the top 5 Bootstrap 4 → 5 class changes I'll need to make in my custom templates.",
+      "prompt": "I maintain a Drupal 9 site with a Radix 5.x subtheme called `oldtheme`. I want to upgrade to Drupal 11 and Radix 6.x. What's the right strategy - do I edit `oldtheme` in place or create a fresh subtheme? Walk me through the high-level steps and give me the top 5 Bootstrap 4 to 5 class changes I'll need to make in my custom templates.",
       "expected_output": "Should recommend a fresh subtheme alongside the old one, not in-place edits. Should outline the migration steps: bump core, install Radix 6.x, generate new subtheme, port `_variables.scss`, recreate custom components as SDC (`.component.yml` + `.twig` + `.scss` + `_*.js`), port `.theme` hooks, update Twig includes from `@radix/...` to `radix:...`, replace BS4 classes with BS5, remove jQuery, switch to Dart Sass, test thoroughly. Should list class changes from BS4 → BS5: `ml-*`/`mr-*` → `ms-*`/`me-*`; `data-toggle` → `data-bs-toggle`; `form-row` → `row g-2`; `custom-select` → `form-select`; `badge-*` → `badge bg-*`; `sr-only` → `visually-hidden`; or similar.",
       "files": [],
       "assertions": [
