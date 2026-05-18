@@ -1,20 +1,22 @@
-# drupal-radix — a Claude skill for the Radix theme
+# drupal-radix - an AI skill and reference pack for the Radix theme
 
-A comprehensive [Claude Code](https://claude.com/claude-code) / [Claude.ai](https://claude.ai) skill that teaches Claude how to work with the [Radix theme for Drupal](https://www.drupal.org/project/radix) — a Bootstrap 5 subtheme generator with Single Directory Components (SDC), the `drupal-radix-cli` tool, and 55+ pre-built components.
+A reusable instruction pack for AI assistants, coding agents, and prompt-driven tools that need to work with the [Radix theme for Drupal](https://www.drupal.org/project/radix). It covers Radix as a Bootstrap 5 subtheme generator with Single Directory Components (SDC), the `drupal-radix-cli` tool, and 55+ pre-built components.
+
+The repository is packaged as a Claude-compatible skill, but the guidance, references, and templates are also useful with other LLM clients and agent tools.
 
 ## What it does
 
-Use this skill whenever you're working in a Drupal 10.1+ project that uses Radix 6.x. It triggers on:
+Use this repository whenever you're working in a Drupal 11 project that uses Radix 6.x. It is especially useful for:
 
 - Creating subthemes (`drush radix:create`)
-- Writing or modifying `{% include 'radix:component' with {…} %}` Twig
+- Writing or modifying `{% include 'radix:component' with {...} %}` Twig
 - Scaffolding new SDC components (`.component.yml` + `.twig` + `.scss` + `_*.js`)
 - Overriding shipped Radix components
 - Customizing `_variables.scss` or integrating Bootswatch themes
 - Configuring `webpack.mix.js` / BiomeJS / BrowserSync
 - Migrating from Radix 5.x to 6.x
 
-It will **not** trigger for Radix UI / Radix Themes (the React component libraries by WorkOS/Modulz) — those are unrelated projects.
+It should **not** trigger for Radix UI / Radix Themes (the React component libraries by WorkOS/Modulz) - those are unrelated projects.
 
 ## What's inside
 
@@ -27,22 +29,24 @@ drupal-radix-skill/
 │   ├── components-guide.md               # SDC pattern, .component.yml, override workflow
 │   ├── bootstrap-bootswatch.md           # _variables.scss, Bootstrap Build, Bootswatch
 │   ├── cli.md                            # drupal-radix-cli commands
-│   ├── migration.md                      # 5.x → 6.x migration guide
+│   ├── migration.md                      # 5.x to 6.x migration guide
 │   └── components/                       # One file per shipped component
 │       ├── index.md                      # Alphabetical TOC + naming gotchas
 │       ├── accordion.md
 │       ├── alerts.md
-│       ├── …55 more
+│       ├── 55 more
 │       └── views-view-unformatted.md
 ├── assets/
 │   └── component-template/               # Skeleton for new custom components
 └── evals/
-    └── evals.json                         # Test prompts + assertions
+    └── evals.json                        # Test prompts + assertions
 ```
 
 ## Install
 
-### Claude Code (user-level)
+### Claude Code
+
+#### User-level
 
 ```bash
 git clone https://github.com/doxigo/drupal-radix-skill.git ~/.claude/skills/drupal-radix
@@ -54,9 +58,9 @@ Verify it's loaded:
 ls ~/.claude/skills/drupal-radix/SKILL.md
 ```
 
-Open any Claude Code session — the skill will appear in your available skills list and trigger automatically on Radix-related work.
+Open any Claude Code session. The skill will appear in your available skills list and trigger automatically on Radix-related work.
 
-### Claude Code (project-level)
+#### Project-level
 
 If you want the skill scoped to a single project:
 
@@ -65,18 +69,27 @@ cd /path/to/your/drupal/project
 git clone https://github.com/doxigo/drupal-radix-skill.git .claude/skills/drupal-radix
 ```
 
-### Update
+#### Update
 
 ```bash
 cd ~/.claude/skills/drupal-radix
 git pull
 ```
 
+### Other AI assistants and tools
+
+If your assistant supports reusable instructions, knowledge bases, or repo-scoped prompts, you can still use this repository directly:
+
+- Use `SKILL.md` as the entry point.
+- Let the tool load files under `references/` on demand.
+- Reuse `assets/component-template/` when scaffolding custom SDC components.
+- Treat the examples in this README as prompt patterns, not Claude-only syntax.
+
 ## Quick examples
 
-Once installed, ask Claude things like:
+Once installed, ask your assistant things like:
 
-> *"I just installed Drupal 10.3 in DDEV. Walk me through creating a Radix subtheme called acme and starting the dev server."*
+> *"I just installed Drupal 11 in DDEV. Walk me through creating a Radix subtheme called acme and starting the dev server."*
 
 > *"In `node--article.html.twig`, render the article as a Radix card with image at the top, title as h2 linking to the node, and a 'Read more' link styled as a button."*
 
@@ -84,11 +97,11 @@ Once installed, ask Claude things like:
 
 > *"Scaffold a custom SDC component called `testimonial` in my Radix subtheme with quote, author_name, author_role props following Radix conventions."*
 
-> *"I'm upgrading from Radix 5.x to 6.x. What's the right strategy and the top Bootstrap 4 → 5 class changes I'll need?"*
+> *"I'm upgrading from Radix 5.x to 6.x. What's the right strategy and the top Bootstrap 4 to 5 class changes I'll need?"*
 
 ## Benchmark
 
-Built and validated with [Anthropic's skill-creator](https://github.com/anthropics/skills) eval workflow. Comparing Claude with the skill loaded versus baseline (no skill) on six realistic Drupal-developer prompts (5 positive + 1 negative disambiguation):
+Built and validated with [Anthropic's skill-creator](https://github.com/anthropics/skills) eval workflow. The current benchmark compares Claude with the skill loaded versus Claude without the skill on six realistic Drupal developer prompts (5 positive + 1 negative disambiguation):
 
 | Configuration | Pass rate |
 | --- | --- |
@@ -96,7 +109,7 @@ Built and validated with [Anthropic's skill-creator](https://github.com/anthropi
 | Without skill | 67.6% (29/45 assertions) |
 | **Delta** | **+32.4 points** |
 
-The biggest deltas were on prompts where Claude tends to confabulate Radix-specific conventions without the skill — e.g. the card component (`card_title_tag`, `card_media`, `card_image_cap` are the real props; without the skill the model invented `title`, `image`, `image_position`). Per-eval breakdown:
+The biggest deltas showed up in baseline runs where the model confabulated Radix-specific conventions. For example, the card component uses `card_title_tag`, `card_media`, and `card_image_cap`; without the skill, the model invented `title`, `image`, and `image_position`. Per-eval breakdown:
 
 | Eval | with_skill | without_skill |
 | --- | --- | --- |
@@ -109,10 +122,10 @@ The biggest deltas were on prompts where Claude tends to confabulate Radix-speci
 
 ## Related projects
 
-- [Radix](https://www.drupal.org/project/radix) — the Drupal theme this skill documents
-- [Radix documentation](https://docs.trydrupal.com/radix) — official docs (the skill also teaches Claude how to query these at runtime via the `?ask=` endpoint)
-- [drupal-radix-cli](https://github.com/doxigo/drupal-radix-cli) — npm CLI for managing Radix components
-- [Anthropic skill-creator](https://github.com/anthropics/skills) — the framework used to build and validate this skill
+- [Radix](https://www.drupal.org/project/radix) - the Drupal theme this skill documents
+- [Radix documentation](https://docs.trydrupal.com/radix) - official docs, including the `?ask=` endpoint this repository points assistants to when runtime lookup is useful
+- [drupal-radix-cli](https://github.com/doxigo/drupal-radix-cli) - npm CLI for managing Radix components
+- [Anthropic skill-creator](https://github.com/anthropics/skills) - the framework used to build and validate this skill
 
 ## Contributing
 
@@ -125,10 +138,8 @@ For larger changes (new sections, structural reshuffles), open an issue first so
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT - see [LICENSE](LICENSE).
 
-## Author
+## Credits
 
-Built by [Sohail Lajevardi](https://github.com/doxigo) — also maintainer of [drupal-radix-cli](https://github.com/doxigo/drupal-radix-cli).
-
-Not affiliated with [Ramsalt](https://ramsalt.com), the maintainers of the Radix theme itself. This is a community skill documenting their work.
+Thanks to [Ramsalt](https://ramsalt.com) for sponsoring the work.
