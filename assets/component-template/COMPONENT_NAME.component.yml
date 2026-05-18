@@ -1,0 +1,31 @@
+'$schema': https://git.drupalcode.org/project/drupal/-/raw/HEAD/core/assets/schemas/v1/metadata.schema.json
+name: COMPONENT_NAME
+description: 'Short, one-line description of what this component does.'
+status: stable
+
+props:
+  type: object
+  properties:
+    example_prop:
+      type: string
+      title: 'Example prop'
+      description: 'A short description of what this prop controls.'
+      default: ''
+    COMPONENT_NAME_utility_classes:
+      type: array
+      title: 'Utility classes'
+      description: 'Bootstrap or custom utility classes appended to the wrapper.'
+      items:
+        type: string
+
+slots:
+  default_slot:
+    title: 'Default slot'
+    description: 'Renderable content for the main slot. Use with `{% embed %}` to fill.'
+
+# Uncomment to declare per-component CSS/JS dependencies.
+# libraryOverrides:
+#   dependencies:
+#     - core/once
+#   js:
+#     extra-helper.js: {}

@@ -1,0 +1,18 @@
+# macOS
+.DS_Store
+
+# Editor caches
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS junk
+Thumbs.db
+
+# Local eval artifacts (the workspace lives outside this repo)
+*-workspace/
+
+# Local environment overrides
+.env.local

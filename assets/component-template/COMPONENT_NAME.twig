@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Default template for the COMPONENT_NAME component.
+ *
+ * Available props (declared in COMPONENT_NAME.component.yml):
+ *   - example_prop: A short description.
+ *
+ * Available slots:
+ *   - default_slot: A short description.
+ *
+ * @see COMPONENT_NAME.component.yml
+ */
+#}
+<div{{ attributes.addClass([
+  'component-COMPONENT_NAME',
+  ...COMPONENT_NAME_utility_classes ?? [],
+]) }}>
+  {% block default_slot %}
+    {{ example_prop|default('') }}
+  {% endblock %}
+</div>

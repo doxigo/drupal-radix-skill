@@ -1,0 +1,98 @@
+{
+  "skill_name": "drupal-radix",
+  "evals": [
+    {
+      "id": 1,
+      "name": "subtheme-creation",
+      "prompt": "I just installed Drupal 10.3 in a fresh DDEV project. I want to use the Radix theme. Walk me through every step to: (1) install Radix via Composer, (2) generate a subtheme called `acme`, (3) enable it as the default theme, (4) install the npm dependencies, and (5) start the dev server with BrowserSync hooked up to my DDEV URL. Give me the exact commands in the order I should run them.",
+      "expected_output": "A sequenced, runnable shell session: `composer require 'drupal/radix:^6.0'`, `ddev drush --include=\"web/themes/contrib/radix\" radix:create acme`, `ddev drush theme:enable acme`, `ddev drush config:set system.theme default acme -y`, cd into subtheme, `nvm use`, `npm install`, `cp .env.example .env.local` with DDEV-aware `DRUPAL_BASE_URL` guidance, then `npm run watch`. Should mention the DDEV-specific command prefixing.",
+      "files": [],
+      "assertions": [
+        {"text": "includes `composer require 'drupal/radix:^6.0'`"},
+        {"text": "uses `drush --include=\"web/themes/contrib/radix\" radix:create acme` (correct flag and module path)"},
+        {"text": "enables and sets the subtheme as default with drush commands"},
+        {"text": "mentions `nvm use` and `npm install`"},
+        {"text": "instructs copying .env.example to .env.local and setting DRUPAL_BASE_URL"},
+        {"text": "ends with `npm run watch` (not `npm start` or `npm run dev` as the primary recommendation)"},
+        {"text": "prefixes commands with `ddev drush` for DDEV (or mentions the prefix requirement)"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "card-component-usage",
+      "prompt": "In my Radix subtheme's `templates/node/node--article.html.twig`, I want to render each article as a Bootstrap card. The card should have: the article image at the top, the node title as an `<h2>` linking to the node, the body field rendered inside the card body, a 'Read more' button-styled link in the footer, and a margin-bottom-4 utility class on the whole card. Use the `radix:card` component. Show me the full Twig include and tell me what to do about contextual links.",
+      "expected_output": "A complete `{% include 'radix:card' with { ... } %}` block using the correct prop names: `card_title_tag: 'h2'`, `card_title: label`, `card_link_url: url`, `card_link_text: 'Read more'|t`, `card_media: content.field_image` (or `content.field_media`), `card_image_cap: 'top'`, `card_body: content.body`, `card_utility_classes: ['mb-4']`. Should mention passing `card_title_prefix: title_prefix` and `card_title_suffix: title_suffix` for contextual links.",
+      "files": [],
+      "assertions": [
+        {"text": "uses `{% include 'radix:card' %}` (not `radix:cards` or another wrong namespace)"},
+        {"text": "sets `card_title_tag: 'h2'`"},
+        {"text": "sets `card_title: label`"},
+        {"text": "sets `card_link_url: url` and `card_link_text: 'Read more'` (or i18n equivalent)"},
+        {"text": "uses `card_media` or `card_image_src` correctly for the image"},
+        {"text": "sets `card_image_cap: 'top'`"},
+        {"text": "uses `card_utility_classes: ['mb-4']` (array, not string)"},
+        {"text": "mentions `card_title_prefix: title_prefix` and `card_title_suffix: title_suffix` for contextual links"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "navbar-override",
+      "prompt": "I need to override the Radix navbar component in my `acme` subtheme so I can add a logo on the left and a search form on the right. Walk me through copying the navbar component from the parent Radix theme into my subtheme, what to do about the Twig include statements in other templates that reference `radix:navbar`, and where I'd put the custom logo/search markup. My Drupal install is at `web/`.",
+      "expected_output": "Should describe copying `web/themes/contrib/radix/components/navbar/` to `web/themes/custom/acme/components/navbar/` (either via `npx drupal-radix-cli add` or `cp -r`). Should explain that SDC inheritance picks up the override automatically — existing `radix:navbar` includes still work — so the include statements in templates don't need changing as long as you keep the component name `navbar`. Should mention `drush cr` after the copy.",
+      "files": [],
+      "assertions": [
+        {"text": "uses the correct source path `web/themes/contrib/radix/components/navbar/`"},
+        {"text": "copies to `web/themes/custom/acme/components/navbar/` (or `SUBTHEME/components/navbar/`)"},
+        {"text": "mentions `npx drupal-radix-cli add` OR `cp -r` as the copy mechanism"},
+        {"text": "explains that SDC inheritance means existing `radix:navbar` includes still resolve correctly to the override"},
+        {"text": "tells the user to run `drush cr` after the copy"},
+        {"text": "doesn't tell the user to edit `web/themes/contrib/radix/` directly (which Composer would overwrite)"}
+      ]
+    },
+    {
+      "id": 4,
+      "name": "custom-testimonial-component",
+      "prompt": "Scaffold a new custom SDC component called `testimonial` in my `acme` Radix subtheme. The component should accept three props: `quote` (string, required), `author_name` (string, required), and `author_role` (string, optional). It should also accept a `testimonial_utility_classes` array following the Radix convention. Give me the contents of all four files (twig, component.yml, scss, _js) plus a README, and tell me how to include it from a Twig template afterward.",
+      "expected_output": "Should produce five files: `testimonial.twig` (with the markup, addressing the three props), `testimonial.component.yml` (declaring props with types — `string` for quote/author_name/author_role with `required: [quote, author_name]`, plus the array `testimonial_utility_classes`), `testimonial.scss` (scoped styles), `_testimonial.js` (Drupal.behaviors wrapper), and `README.md`. Should end with a `{% include 'acme:testimonial' with { ... } %}` example and a `drush cr` instruction.",
+      "files": [],
+      "assertions": [
+        {"text": "creates exactly five files in `components/testimonial/`"},
+        {"text": "`testimonial.component.yml` declares `quote`, `author_name`, `author_role` as typed props"},
+        {"text": "`testimonial.component.yml` marks `quote` and `author_name` as required"},
+        {"text": "`testimonial.component.yml` declares `testimonial_utility_classes` as an `array` with `items.type: string`"},
+        {"text": "`testimonial.component.yml` has a `name` and `status: stable` (or `experimental`)"},
+        {"text": "`_testimonial.js` uses `Drupal.behaviors` and `once()` (not raw addEventListener at module top)"},
+        {"text": "include example uses `{% include 'acme:testimonial' %}` (subtheme namespace, not `radix:`)"},
+        {"text": "tells the user to run `drush cr`"}
+      ]
+    },
+    {
+      "id": 5,
+      "name": "5x-to-6x-migration",
+      "prompt": "I maintain a Drupal 9 site with a Radix 5.x subtheme called `oldtheme`. I want to upgrade to Drupal 10.3 and Radix 6.x. What's the right strategy — do I edit `oldtheme` in place or create a fresh subtheme? Walk me through the high-level steps and give me the top 5 Bootstrap 4 → 5 class changes I'll need to make in my custom templates.",
+      "expected_output": "Should recommend a fresh subtheme alongside the old one, not in-place edits. Should outline the migration steps: bump core, install Radix 6.x, generate new subtheme, port `_variables.scss`, recreate custom components as SDC (`.component.yml` + `.twig` + `.scss` + `_*.js`), port `.theme` hooks, update Twig includes from `@radix/...` to `radix:...`, replace BS4 classes with BS5, remove jQuery, switch to Dart Sass, test thoroughly. Should list class changes from BS4 → BS5: `ml-*`/`mr-*` → `ms-*`/`me-*`; `data-toggle` → `data-bs-toggle`; `form-row` → `row g-2`; `custom-select` → `form-select`; `badge-*` → `badge bg-*`; `sr-only` → `visually-hidden`; or similar.",
+      "files": [],
+      "assertions": [
+        {"text": "recommends creating a fresh subtheme alongside the old one (not in-place editing)"},
+        {"text": "mentions porting components into the new SDC format (`.component.yml` + `.twig` + `.scss` + `_*.js`)"},
+        {"text": "mentions updating Twig include syntax from `@radix/...` to `radix:...`"},
+        {"text": "lists at least 5 specific Bootstrap 4 → 5 class changes (e.g. ml/mr → ms/me, data-toggle → data-bs-toggle, custom-select → form-select, badge-* → badge bg-*, sr-only → visually-hidden)"},
+        {"text": "mentions removing jQuery dependencies"},
+        {"text": "mentions Libsass → Dart Sass transition"}
+      ]
+    },
+    {
+      "id": 6,
+      "name": "negative-radix-ui-react",
+      "prompt": "I'm building a React app with Radix UI Themes (from @radix-ui/themes). Can you help me style the Dropdown Menu component to match my Tailwind theme? I'm using the `<DropdownMenu.Root>` and `<DropdownMenu.Trigger>` JSX components.",
+      "expected_output": "This is the React Radix UI / Radix Themes library, NOT the Drupal Radix theme. The drupal-radix skill should NOT be consulted. Claude should recognize the React/JSX context (Tailwind, `@radix-ui/themes`, JSX components) and respond with React-specific styling advice — class-based Tailwind on the trigger, `data-state` selectors for open/closed styling, or unstyled Radix Primitives composition. Drupal-Radix-specific advice (Twig, SDC, Bootstrap 5) would indicate the skill incorrectly triggered.",
+      "files": [],
+      "assertions": [
+        {"text": "the response does NOT use `{% include 'radix:dropdown-menu' %}` or any Twig syntax"},
+        {"text": "the response does NOT mention Drupal, SDC, Twig, subthemes, or `drush`"},
+        {"text": "the response addresses React/JSX/Tailwind in some form (correct domain)"},
+        {"text": "the response references Radix UI / @radix-ui/themes / Radix Primitives (not the Drupal theme)"}
+      ]
+    }
+  ]
+}
