@@ -16,8 +16,8 @@ Pick the branch that matches the user's request. Each one points at the referenc
 - **A new Radix subtheme (install, generate, dev server)** → [references/setup-and-build.md](references/setup-and-build.md)
 - **Anatomy of a subtheme (what each file/folder does)** → [references/subtheme-anatomy.md](references/subtheme-anatomy.md)
 - **Adding a shipped component to a template** → look up the component in [references/components/](references/components/) (alphabetical, one file each — start with [components/index.md](references/components/index.md) if you don't know the exact name)
-- **Overriding a shipped component to change its markup** → [references/components-guide.md](references/components-guide.md) → *Overriding* section
-- **Scaffolding a new custom SDC component** → [references/components-guide.md](references/components-guide.md) → *Creating components* section. Use `drupal-radix-cli generate` when possible; otherwise scaffold from [assets/component-template/](assets/component-template/)
+- **Overriding a shipped component to change its markup** → [references/components-guide.md](references/components-guide.md) → _Overriding_ section
+- **Scaffolding a new custom SDC component** → [references/components-guide.md](references/components-guide.md) → _Creating components_ section. Use `drupal-radix-cli generate` when possible; otherwise scaffold from [assets/component-template/](assets/component-template/)
 - **Bootstrap variables or Bootswatch theming** → [references/bootstrap-bootswatch.md](references/bootstrap-bootswatch.md)
 - **`drupal-radix-cli` commands and flags** → [references/cli.md](references/cli.md)
 - **Migrating an older subtheme (5.x → 6.x)** → [references/migration.md](references/migration.md)
@@ -51,11 +51,11 @@ components/<name>/
 └── README.md                  # docs + example usage
 ```
 
-You include a component anywhere in Twig with `{% include 'radix:<name>' with { prop: value } %}`. The `radix:` namespace is registered by the parent theme; your subtheme registers `<SUBTHEME>:` for its own components. Don't try to call `radix:foo` and expect it to pick up your subtheme override — *the same name resolves to your subtheme automatically* because SDC walks the theme inheritance chain. See `references/components-guide.md` for the full schema and override workflow.
+You include a component anywhere in Twig with `{% include 'radix:<name>' with { prop: value } %}`. The `radix:` namespace is registered by the parent theme; your subtheme registers `<SUBTHEME>:` for its own components. Don't try to call `radix:foo` and expect it to pick up your subtheme override — _the same name resolves to your subtheme automatically_ because SDC walks the theme inheritance chain. See `references/components-guide.md` for the full schema and override workflow.
 
 ### 3. The `*_utility_classes` convention
 
-Every Radix component accepts an array prop like `button_utility_classes`, `card_utility_classes`, `accordion_utility_classes`, etc. This is how you pass Bootstrap utility classes (`mt-3`, `text-center`, `col-md-4`) *without* editing the component itself. Always prefer this over copying-and-modifying the component just to add a class.
+Every Radix component accepts an array prop like `button_utility_classes`, `card_utility_classes`, `accordion_utility_classes`, etc. This is how you pass Bootstrap utility classes (`mt-3`, `text-center`, `col-md-4`) _without_ editing the component itself. Always prefer this over copying-and-modifying the component just to add a class.
 
 ```twig
 {% include 'radix:button' with {
@@ -171,13 +171,13 @@ Quick lookup. Full per-component docs in `references/components/<name>.md`.
 - **Always edit in `web/themes/custom/<SUBTHEME>/`.** Never touch `web/themes/contrib/radix/`. Composer overwrites the latter on update.
 - **After Twig template changes:** `drush cr` (or `ddev drush cr`). Twig caches aggressively.
 - **After `.component.yml` changes:** `drush cr` is required for SDC to pick up new props/slots.
-- **For active dev:** enable Twig debug + disable render cache. See `references/setup-and-build.md` → *Development mode*.
+- **For active dev:** enable Twig debug + disable render cache. See `references/setup-and-build.md` → _Development mode_.
 - **`npm run watch` not reloading the browser?** Verify `DRUPAL_BASE_URL` in `.env.local` matches the URL you're actually visiting (including the port, e.g. `http://acme.ddev.site` vs `https://acme.ddev.site`).
 - **Component utility classes vs. CSS overrides:** prefer `<name>_utility_classes: ['my-class']` for one-off tweaks. Drop to `.scss` only when the change is structural.
 
 ## See also
 
-- **drupal-frontend skill** — generic Drupal theming (Twig syntax, preprocess functions, libraries, breakpoints) — use it for theme-agnostic work; use *this* skill for anything Radix-specific
+- **drupal-frontend skill** — generic Drupal theming (Twig syntax, preprocess functions, libraries, breakpoints) — use it for theme-agnostic work; use _this_ skill for anything Radix-specific
 - **drupal-development skill** — module/backend development, hooks, services
 - **drupal-security skill** — secure rendering, XSS-safe Twig, access checks
 - **Official docs** — https://docs.trydrupal.com/radix
