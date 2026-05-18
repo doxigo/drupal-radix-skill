@@ -82,8 +82,7 @@ git pull
 
 ### skills.sh
 
-If you publish this repository publicly on GitHub, skills.sh-compatible tooling can install it directly from the repo:
-
+You can also install this via skills.sh process.
 ```bash
 npx skills add doxigo/drupal-radix-skill
 ```
